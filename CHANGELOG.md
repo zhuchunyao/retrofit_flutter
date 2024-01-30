@@ -18,3 +18,5 @@
 *适配build、json_serializable版本
 ## [1.0.5]
 *update license
+## [1.0.6]
+*support flutter 3.+

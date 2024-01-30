@@ -14,7 +14,9 @@ class ApiHelper {
   );
 
   factory ApiHelper() {
-    _options = BaseOptions(connectTimeout: 10000, receiveTimeout: 10000);
+    _options = BaseOptions(
+        connectTimeout: const Duration(seconds: 10000),
+        receiveTimeout: const Duration(seconds: 10000));
     _client = Dio(_options);
     _client.interceptors.add(DioLogInterceptor());
     return _instance;
@@ -22,9 +24,11 @@ class ApiHelper {
 
   /// 发送短信验证码
   Future<dynamic> get15DaysWeatherByArea(String area) async {
-    const apiKey = 'y2vSiRp765e535d7cf39d0eb2309f204e65bb67d9f6ce82';
-    final _options = Options(sendTimeout: 100000, receiveTimeout: 100000);
-    return api.get15DaysWeatherByArea('https://api.apishop.net', _options,
-        'appId', 'content-type', 'Authorization', apiKey, area);
+    const token = '652gtcu41y43zjwfachycvkdgtyjkff3';
+    final _options = Options(
+        sendTimeout: const Duration(seconds: 100000),
+        receiveTimeout: const Duration(seconds: 100000));
+    return api.get15DaysWeatherByArea('https://eolink.o.apispace.com', _options,
+        token, "application/json", area);
   }
 }

@@ -9,7 +9,7 @@ part of 'api_weather.dart';
 class _WeatherApi implements WeatherApi {
   _WeatherApi(this._dio) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    baseUrl = 'https://api.apishop.net';
+    baseUrl = 'https://eolink.o.apispace.com';
   }
 
   final Dio _dio;
@@ -18,29 +18,35 @@ class _WeatherApi implements WeatherApi {
 
   @override
   Future<dynamic> get15DaysWeatherByArea(
-      baseUrl, options, appId, contentType, accountToken, apiKey, area) async {
+    baseUrl,
+    options,
+    token,
+    contentType,
+    areacode,
+  ) async {
     ArgumentError.checkNotNull(baseUrl, 'baseUrl');
     ArgumentError.checkNotNull(options, 'options');
-    ArgumentError.checkNotNull(appId, 'appId');
+    ArgumentError.checkNotNull(token, 'token');
     ArgumentError.checkNotNull(contentType, 'contentType');
-    ArgumentError.checkNotNull(accountToken, 'accountToken');
-    ArgumentError.checkNotNull(apiKey, 'apiKey');
-    ArgumentError.checkNotNull(area, 'area');
+    ArgumentError.checkNotNull(areacode, 'areacode');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'apiKey': apiKey, r'area': area};
+    final queryParameters = <String, dynamic>{r'areacode': areacode};
     final _data = <String, dynamic>{};
     final newOptions = newRequestOptions(options);
     newOptions.extra?.addAll(_extra);
     newOptions.headers?.addAll(<String, dynamic>{
-      r'appId': appId,
+      r'X-APISpace-Token': token,
       r'content-type': contentType,
-      r'Authorization': accountToken
     });
     final _result = await _dio.request(
-        '$baseUrl/common/weather/get15DaysWeatherByArea',
-        queryParameters: queryParameters,
-        options: newOptions.copyWith(method: 'GET', contentType: contentType),
-        data: _data);
+      '$baseUrl/456456/weather/v001/now',
+      queryParameters: queryParameters,
+      options: newOptions.copyWith(
+        method: 'GET',
+        contentType: contentType,
+      ),
+      data: _data.runtimeType == Map ? (_data.isEmpty ? null : _data) : _data,
+    );
     final value = _result.data;
     return value;
   }

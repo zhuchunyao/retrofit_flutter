@@ -5,15 +5,14 @@ import 'response_weather.dart';
 
 part 'api_weather.g.dart';
 
-@RestApi(baseUrl: 'https://api.apishop.net')
+@RestApi(baseUrl: 'https://eolink.o.apispace.com')
 abstract class WeatherApi {
   factory WeatherApi(Dio dio) = _WeatherApi;
 
-  @GET('/common/weather/get15DaysWeatherByArea')
+  @GET('/456456/weather/v001/now')
   Future<dynamic> get15DaysWeatherByArea(@BaseUrl() String baseUrl,
       @DioOptions() Options options,
-      @Header('appId')String appId,
-      @Header('content-type') String contentType,
-      @Header('Authorization') String accountToken,
-      @Query('apiKey') String apiKey, @Query('area') String area);
+      @Header('X-APISpace-Token')String token,
+      @Header('content-type')String contentType,
+      @Query('areacode') String areacode);
 }

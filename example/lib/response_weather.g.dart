@@ -6,12 +6,10 @@ part of 'response_weather.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-WeatherRes _$WeatherResFromJson(Map<String, dynamic> json) {
-  return WeatherRes(
-    statusCode: json['statusCode'] as int?,
-    desc: json['desc'] as String?,
-  );
-}
+WeatherRes _$WeatherResFromJson(Map<String, dynamic> json) => WeatherRes(
+      statusCode: json['statusCode'] as int?,
+      desc: json['desc'] as String?,
+    );
 
 Map<String, dynamic> _$WeatherResToJson(WeatherRes instance) =>
     <String, dynamic>{

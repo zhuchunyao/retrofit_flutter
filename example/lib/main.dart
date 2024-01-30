@@ -69,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    ApiHelper().get15DaysWeatherByArea('西安').then((value) {
+    ApiHelper().get15DaysWeatherByArea('101010100').then((value) {
       setState(() {
         _weather = value.toString();
       });
@@ -116,13 +116,6 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
-            ),
-            Image.asset(
-              'images/icon_star.png',
-              package: 'retrofit_flutter',
-              width: 20,
-              height: 20,
-              fit: BoxFit.fill,
             ),
             Text('$_weather')
           ],
