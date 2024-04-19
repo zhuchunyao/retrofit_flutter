@@ -837,7 +837,7 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
             blocks.add(
                 Code('Map<String, dynamic>? $_dataVar = <String, dynamic>{};'));
             blocks.add(refer('$_dataVar.addAll').call([
-              refer('${_bodyName.displayName}?.toMap() ?? <String,dynamic>{}')
+              refer('${_bodyName.displayName}?.toJson()() ?? <String,dynamic>{}')
             ]).statement);
             blocks.add(Code('$_dataVar.removeWhere((k, v) => v == null);'));
             blocks.add(Code('''if ($_dataVar.isEmpty) {

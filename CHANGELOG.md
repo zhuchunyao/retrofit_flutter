@@ -22,3 +22,5 @@
 * support flutter 3.+
 ## [1.0.7]
 * fix some bugs
+## [1.0.8]
+* toMap转toJson
