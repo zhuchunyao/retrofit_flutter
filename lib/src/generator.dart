@@ -1043,8 +1043,7 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
     }
 
     /// There is no body
-    // blocks.add(Code('Map<String, dynamic>? $_dataVar = <String, dynamic>{};'));
-    blocks.add(Code('$_dataVar = null;'));
+    blocks.add(Code('Map<String, dynamic>? $_dataVar = null;'));
 
   }
 

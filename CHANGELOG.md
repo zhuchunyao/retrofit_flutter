@@ -28,3 +28,5 @@
 * 修复语法报错
 ## [1.0.10]
 * dio请求body为空时，data置为null
+## [1.1.0]
+* dio请求body为空时，data置为null，data指定类型为Map<String, dynamic>
