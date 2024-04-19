@@ -31,7 +31,7 @@ class _WeatherApi implements WeatherApi {
     ArgumentError.checkNotNull(areacode, 'areacode');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'areacode': areacode};
-    final _data = <String, dynamic>{};
+    Map<String, dynamic>? _data = <String, dynamic>{};
     final newOptions = newRequestOptions(options);
     newOptions.extra?.addAll(_extra);
     newOptions.headers?.addAll(<String, dynamic>{
@@ -45,7 +45,7 @@ class _WeatherApi implements WeatherApi {
         method: 'GET',
         contentType: contentType,
       ),
-      data: _data.runtimeType == Map ? (_data.isEmpty ? null : _data) : _data,
+      data: _data,
     );
     final value = _result.data;
     return value;

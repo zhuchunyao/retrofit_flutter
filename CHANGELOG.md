@@ -9,14 +9,16 @@
 ## [1.0.0]
 * pre migrate to null safety
 ## [1.0.1]
-*release  migrate to null safety
+* release  migrate to null safety
 ## [1.0.2]
-*解决自定义Options传参丢失问题
+* 解决自定义Options传参丢失问题
 ## [1.0.3]
-*解决自定义Options与Header共存时传参丢失问题
+* 解决自定义Options与Header共存时传参丢失问题
 ## [1.0.4]
-*适配build、json_serializable版本
+* 适配build、json_serializable版本
 ## [1.0.5]
-*update license
+* update license
 ## [1.0.6]
-*support flutter 3.+
+* support flutter 3.+
+## [1.0.7]
+* fix some bugs

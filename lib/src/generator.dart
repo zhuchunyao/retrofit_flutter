@@ -397,8 +397,7 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
     namedArguments[_queryParamsVar] = refer(_queryParamsVar);
     namedArguments[_optionsVar] =
         _parseOptions(m, namedArguments, blocks, extraOptions);
-    namedArguments[_dataVar] = refer('$_localDataVar.runtimeType == Map ? ('
-        '$_localDataVar.isEmpty ? null :$_localDataVar ) :$_localDataVar');
+    namedArguments[_dataVar] = refer('$_localDataVar');
 
     final cancelToken = _getAnnotation(m, retrofit.CancelRequest);
     if (cancelToken != null) {
@@ -786,14 +785,15 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
     if (_bodyName != null) {
       if (const TypeChecker.fromRuntime(Map)
           .isAssignableFromType(_bodyName.type)) {
-        blocks.add(literalMap({}, refer('String'), refer('dynamic'))
-            .assignFinal(_dataVar)
-            .statement);
-
+        blocks.add(
+            Code('Map<String, dynamic>? $_dataVar = <String, dynamic>{};'));
         blocks.add(refer('$_dataVar.addAll').call([
           refer('${_bodyName.displayName} ?? <String,dynamic>{}')
         ]).statement);
         blocks.add(Code('$_dataVar.removeWhere((k, v) => v == null);'));
+        blocks.add(Code('''if ($_dataVar.isEmpty) {
+      $_dataVar = null;
+    }'''));
       } else if (_typeChecker(File).isExactly(_bodyName.type.element!)) {
         blocks.add(refer('Stream')
             .property('fromIterable')
@@ -814,12 +814,15 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
             blocks.add(
                 refer(_bodyName.displayName).assignFinal(_dataVar).statement);
           } else {
-            blocks.add(literalMap({}, refer('String'), refer('dynamic'))
-                .assignFinal(_dataVar)
-                .statement);
+            blocks.add(
+                Code('Map<String, dynamic>? $_dataVar = <String, dynamic>{};'));
             blocks.add(refer('$_dataVar.addAll').call([
               refer('${_bodyName.displayName}?.toMap() ?? <String,dynamic>{}')
             ]).statement);
+            blocks.add(Code('$_dataVar.removeWhere((k, v) => v == null);'));
+            blocks.add(Code('''if ($_dataVar.isEmpty) {
+      $_dataVar = null;
+    }'''));
           }
         } else {
           final toJson = ele!.lookUpMethod('toJson', ele.library);
@@ -831,13 +834,15 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
             blocks.add(
                 refer(_bodyName.displayName).assignFinal(_dataVar).statement);
           } else {
-            blocks.add(literalMap({}, refer('String'), refer('dynamic'))
-                .assignFinal(_dataVar)
-                .statement);
+            blocks.add(
+                Code('Map<String, dynamic>? $_dataVar = <String, dynamic>{};'));
             blocks.add(refer('$_dataVar.addAll').call([
-              refer('${_bodyName.displayName}?.toJson() ?? <String,dynamic>{}')
+              refer('${_bodyName.displayName}?.toMap() ?? <String,dynamic>{}')
             ]).statement);
             blocks.add(Code('$_dataVar.removeWhere((k, v) => v == null);'));
+            blocks.add(Code('''if ($_dataVar.isEmpty) {
+      $_dataVar = null;
+    }'''));
           }
         }
       } else {
@@ -1038,9 +1043,7 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
     }
 
     /// There is no body
-    blocks.add(literalMap({}, refer('String'), refer('dynamic'))
-        .assignFinal(_dataVar)
-        .statement);
+    blocks.add(Code('Map<String, dynamic>? $_dataVar = <String, dynamic>{};'));
   }
 
   Map<String?, Expression> _generateHeaders(MethodElement m) {

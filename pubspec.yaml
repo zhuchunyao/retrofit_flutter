@@ -1,6 +1,6 @@
 name: retrofit_flutter
 description: retrofit for flutter
-version: 1.0.6
+version: 1.0.7
 homepage: https://github.com/zhuchunyao/retrofit_flutter
 
 environment:
@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   meta: ^1.10.0
-  dio: ^5.3.2
+  dio: ^5.4.1
   source_gen: ^1.2.2
   built_collection: ^5.0.0
   code_builder: ^4.0.0
