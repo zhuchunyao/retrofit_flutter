@@ -30,12 +30,12 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
   static const _queryParamsVar = 'queryParameters';
   static const _optionsVar = 'options';
   static const _dataVar = 'data';
-  static const _localDataVar = '_data';
+  static const _localDataVar = 'requestData';
   static const _dioVar = '_dio';
   static const _extraVar = 'extra';
-  static const _localExtraVar = '_extra';
+  static const _localExtraVar = 'requestExtra';
   static const _contentType = 'contentType';
-  static const _resultVar = '_result';
+  static const _resultVar = 'response';
   static const _cancelToken = 'cancelToken';
   static const _onSendProgress = 'onSendProgress';
   static const _onReceiveProgress = 'onReceiveProgress';
@@ -837,7 +837,7 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
             blocks.add(
                 Code('Map<String, dynamic>? $_dataVar = <String, dynamic>{};'));
             blocks.add(refer('$_dataVar.addAll').call([
-              refer('${_bodyName.displayName}?.toJson()')
+              refer('${_bodyName.displayName}?.toJson() ?? <String,dynamic>{}')
             ]).statement);
             blocks.add(Code('$_dataVar.removeWhere((k, v) => v == null);'));
             blocks.add(Code('''if ($_dataVar.isEmpty) {
@@ -1043,8 +1043,7 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
     }
 
     /// There is no body
-    blocks.add(Code('Map<String, dynamic>? $_dataVar = null;'));
-
+    blocks.add(Code('Map<String, dynamic>? $_dataVar;'));
   }
 
   Map<String?, Expression> _generateHeaders(MethodElement m) {
