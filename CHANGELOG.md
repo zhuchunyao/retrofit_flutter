@@ -24,3 +24,7 @@
 * fix some bugs
 ## [1.0.8]
 * toMap转toJson
+## [1.0.9]
+* 修复语法报错
+## [1.0.10]
+* dio请求body为空时，data置为null

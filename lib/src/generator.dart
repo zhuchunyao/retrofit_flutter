@@ -837,7 +837,7 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
             blocks.add(
                 Code('Map<String, dynamic>? $_dataVar = <String, dynamic>{};'));
             blocks.add(refer('$_dataVar.addAll').call([
-              refer('${_bodyName.displayName}?.toJson()() ?? <String,dynamic>{}')
+              refer('${_bodyName.displayName}?.toJson()')
             ]).statement);
             blocks.add(Code('$_dataVar.removeWhere((k, v) => v == null);'));
             blocks.add(Code('''if ($_dataVar.isEmpty) {
@@ -1043,7 +1043,9 @@ class RetrofitGenerator extends GeneratorForAnnotation<retrofit.RestApi> {
     }
 
     /// There is no body
-    blocks.add(Code('Map<String, dynamic>? $_dataVar = <String, dynamic>{};'));
+    // blocks.add(Code('Map<String, dynamic>? $_dataVar = <String, dynamic>{};'));
+    blocks.add(Code('$_dataVar = null;'));
+
   }
 
   Map<String?, Expression> _generateHeaders(MethodElement m) {
